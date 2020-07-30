@@ -29,7 +29,7 @@ public class MemberController {
 		boolean bLoginError = login_error != null;
 		
 		if(bLoginError) {
-			String msg="아이디 또는 패스워드를 잘못 입력 하셨습니다.";
+			String msg="아이디 또는 패스워드를 잘못 입력 하셨습니다..";
 			model.addAttribute("message", msg);
 		}		
 		
