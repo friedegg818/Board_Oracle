@@ -225,6 +225,7 @@ public class MyUtil {
 		return result;
     }
 
+    //********************************************
     /**
      * HTML 문서에서 img 태그의 src 속성값을 추출하는 메소드
      * @param html		html 문자열

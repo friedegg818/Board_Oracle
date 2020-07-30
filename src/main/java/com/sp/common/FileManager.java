@@ -55,8 +55,8 @@ public class FileManager {
 		if(!f.getParentFile().exists())
 			f.getParentFile().mkdirs();
 
-		partFile.transferTo(f);
-
+		partFile.transferTo(f);		// transferTo() : 파일 객체를 넘겨주면 그 객체의 이름으로 파일 저장 
+		
 		return saveFilename;
 	}
 

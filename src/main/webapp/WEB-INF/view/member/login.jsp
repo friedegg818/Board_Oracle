@@ -50,14 +50,13 @@ function sendLogin() {
         return;
     }
 
-    f.action = "<%=cp%>/member/login_check";
+    f.action = "<%=cp%>/member/login";
     f.submit();
 }
 </script>
 
 <div class="body-container">
-
-    <div style="margin: 0px auto; padding-top:90px; width:360px;">
+    <div style="width:360px; margin: 0px auto; padding-top:90px;">
     	<div style="text-align: center;">
         	<span style="font-weight: bold; font-size:27px; color: #424951;">회원 로그인</span>
         </div>
@@ -103,5 +102,4 @@ function sendLogin() {
 		  </table>
 		</form>           
 	</div>
-
 </div>

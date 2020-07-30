@@ -2,7 +2,6 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <%
    String cp = request.getContextPath();
 %>
@@ -49,7 +48,7 @@
 </script>
 
 <div class="body-container">
-    <div style="margin: 0px auto; padding-top:90px; width:420px;">
+    <div style="width:420px; margin: 0px auto; padding-top:90px;">
 	
     	<div style="text-align: center;">
         	<span style="font-weight: bold; font-size:27px; color: #424951;">패스워드 재확인</span>
@@ -57,7 +56,7 @@
 	
 		<form name="pwdForm" method="post" action="">
 		  <table style="width:100%; margin: 20px auto; padding:30px;  border-collapse: collapse; border: 1px solid #DAD9FF;">
-		  <tr style="height:50px;">
+		  <tr style="height:50px;"> 
 		      <td style="padding-left: 30px; text-align: left;">
 		          정보보호를 위해 패스워드를 다시 한 번 입력해주세요.
 		      </td>
@@ -92,17 +91,16 @@
 		        &nbsp;
 		      </td>
 		  </tr>
-		  <tr align="center" height="10" >
+		  <tr align="center" height="10" > 
 		      <td>&nbsp;</td>
 		  </tr>
 	    </table>
 		</form>
-
+		           
 	    <table style="width:100%; margin: 10px auto 0; border-collapse: collapse;">
 		  <tr align="center" height="30" >
 		    	<td><span style="color: blue;">${message}</span></td>
 		  </tr>
 		</table>
 	</div>
-
 </div>
