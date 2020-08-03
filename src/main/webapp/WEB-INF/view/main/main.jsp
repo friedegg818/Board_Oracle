@@ -7,6 +7,6 @@
 
 <div class="body-container" style="width: 700px;">
     <div>
-        메인 화면 입니다.
+     	미니 보드 게시판
     </div>
 </div>

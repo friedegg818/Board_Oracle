@@ -32,9 +32,7 @@ public class BoardController {
 	private BoardService service;
 	@Autowired
 	private MyUtil myUtil;
-	@Autowired
-	private FileManager fileManager;
-	
+
 	@RequestMapping(value="list")
 	public String list(
 			@RequestParam(value="page", defaultValue="1") int current_page,
@@ -129,12 +127,9 @@ public class BoardController {
 		
 		SessionInfo info=(SessionInfo)session.getAttribute("member");
 		
-		String root=session.getServletContext().getRealPath("/");
-		String pathname=root+"uploads"+File.separator+"bbs";
-		
-		try {
+			try {
 			dto.setUserId(info.getUserId());
-			service.insertBoard(dto, pathname);
+			service.insertBoard(dto);
 		} catch (Exception e) {
 		}
 		
@@ -145,16 +140,9 @@ public class BoardController {
 	public String article(
 			@RequestParam int num,
 			@RequestParam String page,
-			@RequestParam(defaultValue="all") String condition,
-			@RequestParam(defaultValue="") String keyword,
 			Model model) throws Exception {
 		
-		keyword = URLDecoder.decode(keyword, "utf-8");
-		
 		String query="page="+page;
-		if(keyword.length()!=0) {
-			query+="&condition="+condition+"&keyword="+URLEncoder.encode(keyword, "UTF-8");
-		}
 
 		service.updateHitCount(num);
 
@@ -167,8 +155,6 @@ public class BoardController {
         
 		// 이전 글, 다음 글
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("condition", condition);
-		map.put("keyword", keyword);
 		map.put("num", num);
 
 		Board preReadDto = service.preReadBoard(map);
@@ -213,12 +199,9 @@ public class BoardController {
 			Board dto, 
 			@RequestParam String page,
 			HttpSession session) throws Exception {
-		
-		String root=session.getServletContext().getRealPath("/");
-		String pathname=root+"uploads"+File.separator+"bbs";		
 
 		try {
-			service.updateBoard(dto, pathname);		
+			service.updateBoard(dto);		
 		} catch (Exception e) {
 		}
 		
@@ -232,10 +215,7 @@ public class BoardController {
 			HttpSession session
 			) throws Exception {
 		SessionInfo info=(SessionInfo)session.getAttribute("member");
-		
-		String root=session.getServletContext().getRealPath("/");
-		String pathname=root+"uploads"+File.separator+"bbs";
-		
+			
 		Board dto=service.readBoard(num);
 		if(dto==null) {
 			return "redirect:/bbs/list?page="+page;
@@ -246,12 +226,7 @@ public class BoardController {
 		}
 		
 		try {
-			if(dto.getSaveFilename()!=null) {
-				fileManager.doFileDelete(dto.getSaveFilename(), pathname); // 실제파일삭제
-				dto.setSaveFilename("");
-				dto.setOriginalFilename("");
-				service.updateBoard(dto, pathname); // DB 테이블의 파일명 변경(삭제)
-			}
+			service.updateBoard(dto); // DB 테이블의 파일명 변경(삭제)
 		} catch (Exception e) {
 		}
 		
@@ -267,221 +242,11 @@ public class BoardController {
 			HttpSession session) throws Exception {
 		SessionInfo info=(SessionInfo)session.getAttribute("member");
 		
-		keyword = URLDecoder.decode(keyword, "utf-8");
 		String query="page="+page;
-		if(keyword.length()!=0) {
-			query+="&condition="+condition+"&keyword="+URLEncoder.encode(keyword, "UTF-8");
-		}
+	
 		
-		String root=session.getServletContext().getRealPath("/");
-		String pathname=root+"uploads"+File.separator+"bbs";
-		
-		service.deleteBoard(num, pathname, info.getUserId());
+		service.deleteBoard(num,  info.getUserId());
 		
 		return "redirect:/bbs/list?"+query;
-	}
-	
-	@RequestMapping(value="download")
-	public void download(
-			@RequestParam int num,
-			HttpServletRequest req,
-			HttpServletResponse resp,
-			HttpSession session
-			) throws Exception {
-		
-		String root=session.getServletContext().getRealPath("/");
-		String pathname=root+"uploads"+File.separator+"bbs";
-		
-		Board dto=service.readBoard(num);
-		
-		if(dto!=null) {
-			boolean b=fileManager.doFileDownload(dto.getSaveFilename(),
-					                   dto.getOriginalFilename(), pathname, resp);
-			if(b) return;
-		}
-		
-		resp.setContentType("text/html;charset=utf-8");
-		PrintWriter out=resp.getWriter();
-		out.print("<script>alert('파일 다운로드가 실패 했습니다.');history.back();</script>");
-	}
-	
-	// 게시글 좋아요 
-	@RequestMapping(value="insertBoardLike", method=RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> insertBoardLike(
-			@RequestParam Map<String, Object> paramMap,
-			HttpSession session
-			) throws Exception {
-		SessionInfo info = (SessionInfo)session.getAttribute("member");
-		paramMap.put("userId", info.getUserId());
-		String state = "true";
-		int count = 0;
-		
-		try {
-			service.insertBoardLike(paramMap);
-			
-		} catch (Exception e) {
-			state = "false";
-		}
-		
-		int num = Integer.parseInt((String)paramMap.get("num"));
-		count = service.boardLikeCount(num);
-		
-		Map<String, Object> model = new HashMap<>();
-		
-		model.put("state", state);
-		model.put("boardLikeCount", count);
-		
-		return model;		
-	}
-	
-	
-	// 댓글 리스트 : AJAX-text/html
-	@RequestMapping(value="listReply")
-	public String list(
-			@RequestParam int num,
-			@RequestParam(value="pageNo", defaultValue="1") int current_page,
-			Model model
-			) throws Exception {
-		
-		int rows=5;
-		int dataCount=0;
-		int total_page=0;
-		
-		Map<String, Object> map = new HashMap<>();
-		map.put("num", num);
-		
-		dataCount = service.replyCount(map);
-		total_page=myUtil.pageCount(rows, dataCount);
-		
-		if(current_page>total_page) {
-			current_page=total_page;
-		}
-		
-		int offset=(current_page-1)*rows;
-		if(offset<0) offset=0;
-		
-		map.put("offset", offset);
-		map.put("rows", rows);
-		
-		List<Reply> list = service.listReply(map);
-		for(Reply dto:list) {
-			dto.setContent(myUtil.htmlSymbols(dto.getContent()));
-		}
-		
-		String paging = myUtil.pagingMethod(current_page, 
-				total_page, "listPage");
-		
-		model.addAttribute("listReply", list);
-		model.addAttribute("pageNo", current_page);
-		model.addAttribute("replyCount", dataCount);
-		model.addAttribute("total_page", total_page);
-		model.addAttribute("paging", paging);
-		
-		return "bbs/listReply";
-	}
-	
-	// 댓글 및 답글 등록 : AJAX-JSON 
-	@RequestMapping(value="insertReply", method=RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> insertReply(
-			Reply dto,
-			HttpSession session 
-			) throws Exception {
-		Map<String, Object> model = new HashMap<>();
-		String state ="true";
-		SessionInfo info = (SessionInfo)session.getAttribute("member");
-		
-		try {
-			dto.setUserId(info.getUserId());
-			service.insertReply(dto);
-		} catch (Exception e) {
-			state = "false";
-		}
-		
-		model.put("state", state);
-		
-		return model;
-	}
-	
-	
-	// 댓글의 답글 리스트 : AJAX-Text 
-	@RequestMapping(value="listReplyAnswer")
-	public String listReplyAnswer(
-			@RequestParam int answer,
-			Model model
-			) throws Exception {
-		
-		List<Reply> list = service.listReplyAnswer(answer);
-		for(Reply dto : list) {
-			dto.setContent(myUtil.htmlSymbols(dto.getContent()));
-		}
-		
-		model.addAttribute("listReplyAnswer", list);
-		
-		return "bbs/listReplyAnswer";		
-	}	
-	
-	// 댓글의 답글 개수 : AJAX-JSON 
-	@RequestMapping("countReplyAnswer")
-	@ResponseBody
-	public Map<String, Object> countReplyAnswer(
-			@RequestParam int answer
-			) throws Exception {
-		Map<String, Object> model = new HashMap<>();
-		
-		int count = service.replyAnswerCount(answer);
-		model.put("count", count);
-		
-		return model;
-	}
-	
-	// 댓글 및 댓글의 답글 삭제 : AJAX-JSON
-	@RequestMapping(value="deleteReply", method=RequestMethod.POST)
-	public Map<String, Object> deleteReply(
-			@RequestParam Map<String, Object> paramMap
-			) throws Exception {
-		String state = "true"; 
-		try {
-			service.deleteReply(paramMap);
-		} catch (Exception e) {
-			state = "false";
-		}
-		
-		Map<String, Object> map = new HashMap<>();
-		map.put("state", state);
-		return map;
-	}
-	
-	// 댓글 좋아요/싫어요 추가 및 좋아요/싫어요 개수 가져오기 
-	@RequestMapping(value="insertReplyLike", method=RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> insertReplyLike(
-				@RequestParam Map<String, Object> paramMap,
-				HttpSession session 
-			) throws Exception {
-		
-		SessionInfo info = (SessionInfo)session.getAttribute("member");
-		String state = "true";
-		
-		try {
-			paramMap.put("userId", info.getUserId());
-			service.insertReplyLike(paramMap);
-		} catch (Exception e) {
-			state = "false";
-		}
-		
-		// 좋아요/싫어요 개수 가져오기 
-		Map<String, Object> countMap = service.replyLikeCount(paramMap);
-		
-		// 마이바티스의 resultType이 map인 경우 int형은 BigDecimal로 넘어옴 		
-		int likeCount = ((BigDecimal)countMap.get("LIKECOUNT")).intValue();
-		int disLikeCount = ((BigDecimal)countMap.get("DISLIKECOUNT")).intValue();
-		
-		Map<String, Object> model = new HashMap<>();
-		model.put("state", state);
-		model.put("likeCount", likeCount);
-		model.put("disLikeCount", disLikeCount);
-		return model;
 	}
 }

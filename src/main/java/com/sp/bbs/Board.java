@@ -7,11 +7,6 @@ public class Board {
 	private String userId, userName, subject, content, created;
 	private int hitCount;
 	
-	private String saveFilename, originalFilename;
-	private MultipartFile upload; // <input type='file' name='upload' .. 의 name 속성값과 같은 이름
-	
-	private int replyCount, boardLikeCount;
-
 	public int getNum() {
 		return num;
 	}
@@ -74,47 +69,5 @@ public class Board {
 
 	public void setHitCount(int hitCount) {
 		this.hitCount = hitCount;
-	}
-
-	public String getSaveFilename() {
-		return saveFilename;
-	}
-
-	public void setSaveFilename(String saveFilename) {
-		this.saveFilename = saveFilename;
-	}
-
-	public String getOriginalFilename() {
-		return originalFilename;
-	}
-
-	public void setOriginalFilename(String originalFilename) {
-		this.originalFilename = originalFilename;
-	}
-
-	public MultipartFile getUpload() {
-		return upload;
-	}
-
-	public void setUpload(MultipartFile upload) {
-		this.upload = upload;
-	}
-
-	public int getReplyCount() {
-		return replyCount;
-	}
-
-	public void setReplyCount(int replyCount) {
-		this.replyCount = replyCount;
-	}
-
-	public int getBoardLikeCount() {
-		return boardLikeCount;
-	}
-
-	public void setBoardLikeCount(int boardLikeCount) {
-		this.boardLikeCount = boardLikeCount;
-	}
-	
-	
+	}	
 }
