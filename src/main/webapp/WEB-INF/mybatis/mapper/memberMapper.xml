@@ -17,10 +17,6 @@
        SELECT member_seq.NEXTVAL FROM dual 
     </select>
 
-    <insert id="insertMember" parameterType="Long">
-       INSERT INTO member(memberIdx, membership) VALUES (#{memberIdx}, 1) 
-    </insert>
-
     <insert id="insertMember1" parameterType="com.sp.member.Member">
        INSERT INTO member1(memberIdx, userId, userName, userPwd, enabled, created_date, modify_date, last_login) VALUES
                  (#{memberIdx}, #{userId}, #{userName}, #{userPwd}, 1, SYSDATE, SYSDATE, SYSDATE) 

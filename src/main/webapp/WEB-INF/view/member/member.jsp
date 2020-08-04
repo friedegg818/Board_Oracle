@@ -52,85 +52,11 @@ function memberOk() {
         f.userName.focus();
         return;
     }
-    f.userName.value = str;
-
-    str = f.birth.value;
-	str = str.trim();
-    if(!str || !isValidDateFormat(str)) {
-        alert("생년월일를 입력하세요[YYYY-MM-DD]. ");
-        f.birth.focus();
-        return;
-    }
-    
-    str = f.tel1.value;
-	str = str.trim();
-    if(!str) {
-        alert("전화번호를 입력하세요. ");
-        f.tel1.focus();
-        return;
-    }
-
-    str = f.tel2.value;
-	str = str.trim();
-    if(!str) {
-        alert("전화번호를 입력하세요. ");
-        f.tel2.focus();
-        return;
-    }
-    if(!/^(\d+)$/.test(str)) {
-        alert("숫자만 가능합니다. ");
-        f.tel2.focus();
-        return;
-    }
-
-    str = f.tel3.value;
-	str = str.trim();
-    if(!str) {
-        alert("전화번호를 입력하세요. ");
-        f.tel3.focus();
-        return;
-    }
-    if(!/^(\d+)$/.test(str)) {
-        alert("숫자만 가능합니다. ");
-        f.tel3.focus();
-        return;
-    }
-    
-    str = f.email1.value;
-	str = str.trim();
-    if(!str) {
-        alert("이메일을 입력하세요. ");
-        f.email1.focus();
-        return;
-    }
-
-    str = f.email2.value;
-	str = str.trim();
-    if(!str) {
-        alert("이메일을 입력하세요. ");
-        f.email2.focus();
-        return;
-    }
+    f.userName.value = str;   
 
  	f.action = "<%=cp%>/member/${mode}";
 
     f.submit();
-}
-
-function changeEmail() {
-    var f = document.memberForm;
-	    
-    var str = f.selectEmail.value;
-    if(str!="direct") {
-        f.email2.value=str; 
-        f.email2.readOnly = true;
-        f.email1.focus(); 
-    }
-    else {
-        f.email2.value="";
-        f.email2.readOnly = false;
-        f.email1.focus();
-    }
 }
 
 function userIdCheck() {
@@ -230,109 +156,8 @@ function userIdCheck() {
 		                      placeholder="이름">
 			        </p>
 			      </td>
-			  </tr>
-			
-			  <tr>
-			      <td width="100" valign="top" style="text-align: right; padding-top: 5px;">
-			            <label style="font-weight: 900;">생년월일</label>
-			      </td>
-			      <td style="padding: 0 0 15px 15px;">
-			        <p style="margin-top: 1px; margin-bottom: 5px;">
-			            <input type="text" name="birth" value="${dto.birth}" maxlength="10" 
-			                       class="boxTF" style="width: 95%;" placeholder="생년월일">
-			        </p>
-			        <p class="help-block">생년월일은 2000-01-01 형식으로 입력 합니다.</p>
-			      </td>
-			  </tr>
-			  
-			  <tr>
-			      <td width="100" valign="top" style="text-align: right; padding-top: 5px;">
-			            <label style="font-weight: 900;">이메일</label>
-			      </td>
-			      <td style="padding: 0 0 15px 15px;">
-			        <p style="margin-top: 1px; margin-bottom: 5px;">
-			            <select name="selectEmail" onchange="changeEmail();" class="selectField">
-			                <option value="">선 택</option>
-			                <option value="naver.com" ${dto.email2=="naver.com" ? "selected='selected'" : ""}>네이버 메일</option>
-			                <option value="hanmail.net" ${dto.email2=="hanmail.net" ? "selected='selected'" : ""}>한 메일</option>
-			                <option value="hotmail.com" ${dto.email2=="hotmail.com" ? "selected='selected'" : ""}>핫 메일</option>
-			                <option value="gmail.com" ${dto.email2=="gmail.com" ? "selected='selected'" : ""}>지 메일</option>
-			                <option value="direct">직접입력</option>
-			            </select>
-			            <input type="text" name="email1" value="${dto.email1}" size="13" maxlength="30"  class="boxTF">
-			            @ 
-			            <input type="text" name="email2" value="${dto.email2}" size="13" maxlength="30"  class="boxTF" readonly="readonly">
-			        </p>
-			      </td>
-			  </tr>
-			  
-			  <tr>
-			      <td width="100" valign="top" style="text-align: right; padding-top: 5px;">
-			            <label style="font-weight: 900;">전화번호</label>
-			      </td>
-			      <td style="padding: 0 0 15px 15px;">
-			        <p style="margin-top: 1px; margin-bottom: 5px;">
-			            <select class="selectField" id="tel1" name="tel1" >
-			                <option value="">선 택</option>
-			                <option value="010" ${dto.tel1=="010" ? "selected='selected'" : ""}>010</option>
-			                <option value="011" ${dto.tel1=="011" ? "selected='selected'" : ""}>011</option>
-			                <option value="016" ${dto.tel1=="016" ? "selected='selected'" : ""}>016</option>
-			                <option value="017" ${dto.tel1=="017" ? "selected='selected'" : ""}>017</option>
-			                <option value="018" ${dto.tel1=="018" ? "selected='selected'" : ""}>018</option>
-			                <option value="019" ${dto.tel1=="019" ? "selected='selected'" : ""}>019</option>
-			            </select>
-			            -
-			            <input type="text" name="tel2" value="${dto.tel2}" class="boxTF" maxlength="4">
-			            -
-			            <input type="text" name="tel3" value="${dto.tel3}" class="boxTF" maxlength="4">
-			        </p>
-			      </td>
-			  </tr>
-			  
-			  <tr>
-			      <td width="100" valign="top" style="text-align: right; padding-top: 5px;">
-			            <label style="font-weight: 900;">우편번호</label>
-			      </td>
-			      <td style="padding: 0 0 15px 15px;">
-			        <p style="margin-top: 1px; margin-bottom: 5px;">
-			            <input type="text" name="zip" id="zip" value="${dto.zip}"
-			                       class="boxTF" readonly="readonly">
-			            <button type="button" class="btn" onclick="daumPostcode();">우편번호</button>          
-			        </p>
-			      </td>
-			  </tr>
-			  
-			  <tr>
-			      <td width="100" valign="top" style="text-align: right; padding-top: 5px;">
-			            <label style="font-weight: 900;">주소</label>
-			      </td>
-			      <td style="padding: 0 0 15px 15px;">
-			        <p style="margin-top: 1px; margin-bottom: 5px;">
-			            <input type="text" name="addr1" id="addr1"  value="${dto.addr1}" maxlength="50" 
-			                       class="boxTF" style="width: 95%;" placeholder="기본 주소" readonly="readonly">
-			        </p>
-			        <p style="margin-bottom: 5px;">
-			            <input type="text" name="addr2" id="addr2" value="${dto.addr2}" maxlength="50" 
-			                       class="boxTF" style="width: 95%;" placeholder="나머지 주소">
-			        </p>
-			      </td>
-			  </tr>
-			  <c:if test="${mode=='member'}">
-				  <tr>
-				      <td width="100" valign="top" style="text-align: right; padding-top: 5px;">
-				            <label style="font-weight: 900;">약관동의</label>
-				      </td>
-				      <td style="padding: 0 0 15px 15px;">
-				        <p style="margin-top: 7px; margin-bottom: 5px;">
-				             <label>
-				                 <input id="agree" name="agree" type="checkbox" checked="checked"
-				                      onchange="form.sendButton.disabled = !checked"> <a href="#">이용약관</a>에 동의합니다.
-				             </label>
-				        </p>
-				      </td>
-				  </tr>
-			  </c:if>
-			  </table>
+			  </tr>			 
+		  </table>
 			
 			  <table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
 			     <tr height="45"> 
@@ -348,49 +173,4 @@ function userIdCheck() {
 			  </table>
 			</form>
         </div>
-
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script>
-    function daumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var fullAddr = ''; // 최종 주소 변수
-                var extraAddr = ''; // 조합형 주소 변수
-
-                // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                    fullAddr = data.roadAddress;
-
-                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                    fullAddr = data.jibunAddress;
-                }
-
-                // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
-                if(data.userSelectedType === 'R'){
-                    //법정동명이 있을 경우 추가한다.
-                    if(data.bname !== ''){
-                        extraAddr += data.bname;
-                    }
-                    // 건물명이 있을 경우 추가한다.
-                    if(data.buildingName !== ''){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-                }
-
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('zip').value = data.zonecode; //5자리 새우편번호 사용
-                document.getElementById('addr1').value = fullAddr;
-
-                // 커서를 상세주소 필드로 이동한다.
-                document.getElementById('addr2').focus();
-            }
-        }).open();
-    }
-</script>
 </div>
