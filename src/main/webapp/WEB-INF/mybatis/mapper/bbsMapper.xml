@@ -11,37 +11,25 @@
 	<select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(*), 0)
 		FROM bbs b
-		JOIN member1 m ON b.userId=m.userId
+		JOIN member m ON b.userId=m.userId
 	</select>
 
 	<!-- 글리스트 -->
 	<select id="listBoard" parameterType="map" resultType="com.sp.bbs.Board">
 		SELECT b.num, b.userId, userName, subject, 
 		       TO_CHAR(b.created, 'YYYY-MM-DD') created,
-		       hitCount, saveFilename,
-		       NVL(replyCount, 0) replyCount
+		       hitCount
 		FROM bbs b
-		JOIN member1 m ON b.userId=m.userId
-		LEFT OUTER JOIN (
-			SELECT num, COUNT(*) replyCount FROM bbsReply
-			WHERE answer=0
-			GROUP BY num
-		) c ON b.num=c.num
-	
+		JOIN member m ON b.userId=m.userId
 		ORDER BY num DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
 	</select>
 	
 	<select id="readBoard" parameterType="Integer" resultType="com.sp.bbs.Board">
 		SELECT b.num, b.userId, userName, subject, content,
-			   hitCount, b.created, saveFilename, originalFilename, 
-			   NVL(boardLikeCount, 0) boardLikeCount
+			   hitCount, b.created
 		FROM bbs b
-		JOIN member1 m ON b.userId=m.userId
-		LEFT OUTER JOIN (
-			SELECT num, COUNT(*) boardLikeCount FROM bbsLike
-			GROUP BY num
-		) bc ON b.num = bc.num
+		JOIN member m ON b.userId=m.userId
 		WHERE b.num = #{num}
 	</select>
 	
@@ -54,7 +42,7 @@
 	<select id="preReadBoard" parameterType="map" resultType="com.sp.bbs.Board">
 		SELECT num, subject
 		FROM bbs b
-		JOIN member1 m ON b.userId=m.userId
+		JOIN member m ON b.userId=m.userId
 		<where>
 			(num &gt; #{num})
 		</where>
@@ -66,7 +54,7 @@
 	<select id="nextReadBoard" parameterType="map" resultType="com.sp.bbs.Board">
 		SELECT num, subject
 		FROM bbs b
-		JOIN member1 m ON b.userId=m.userId
+		JOIN member m ON b.userId=m.userId
 		<where>
 			(num &lt; #{num})
 		</where>

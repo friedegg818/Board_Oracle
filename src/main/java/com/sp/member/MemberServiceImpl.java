@@ -29,15 +29,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void insertMember(Member dto) throws Exception {
 		try {
-			
-			long memberSeq = dao.selectOne("member.memberSeq");
-			
-			// 회원정보 저장
-			dao.insertData("member.insertMember", memberSeq);
-			
-			// dao.insertData("member.insertMember1", dto);
-			// dao.insertData("member.insertMember2", dto);
-			dao.updateData("member.insertMember12", dto); // member1, member2 테이블 동시에 
+			dao.insertData("member.insertMember");
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -49,8 +41,7 @@ public class MemberServiceImpl implements MemberService {
 		Member dto=null;
 		
 		try {
-			dto=dao.selectOne("member.readMember", userId);
-						
+			dto=dao.selectOne("member.readMember", userId);						
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -61,10 +52,8 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public void updateMember(Member dto) throws Exception {
-		try {
-						
-			dao.updateData("member.updateMember1", dto);
-			dao.updateData("member.updateMember2", dto);
+		try {						
+			dao.updateData("member.updateMember", dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -73,11 +62,8 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void deleteMember(Map<String, Object> map) throws Exception {
-		try {
-			map.put("membershep", 0);
-			
-			dao.deleteData("member.deleteMember2", map);
-			dao.deleteData("member.deleteMember1", map);
+		try {			
+			dao.deleteData("member.deleteMember", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
