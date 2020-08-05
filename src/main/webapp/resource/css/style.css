@@ -101,3 +101,12 @@ textarea:focus, input:focus{
 	background-color:#ffffff;
 	font-family:"Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
 }
+
+.inputline {
+	border: 1px solid #cccccc;
+	border-collapse: none;
+	height: 25px;
+	width: 70%;
+	border-radius: 4px;
+	padding-left: 5px;
+}

@@ -51,7 +51,7 @@ function updateBoard() {
 			       이름 : ${dto.userName}
 			    </td>
 			    <td width="50%" align="right" style="padding-right: 5px;">
-			        ${dto.created} | 조회 ${dto.hitCount}
+			        ${dto.created} 
 			    </td>
 			</tr>
 			

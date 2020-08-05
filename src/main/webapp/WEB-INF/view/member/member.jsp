@@ -100,21 +100,20 @@ function userIdCheck() {
         <h3> ${mode=="member"?"회원 가입":"회원 정보 수정"} </h3>
     </div>
     
-        <div>
+        <div align="center">
 			<form name="memberForm" method="post">
-			  <table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px;">
+			  <table style="width: 50%; margin: 20px auto 0px; border-spacing: 0px;">
 			  <tr>
 			      <td width="100" valign="top" style="text-align: right; padding-top: 5px;">
 			            <label style="font-weight: 900;">아이디</label>
 			      </td>
 			      <td style="padding: 0 0 15px 15px;">
 			        <p style="margin-top: 1px; margin-bottom: 5px;">
-			            <input type="text" name="userId" id="userId" value="${dto.userId}"
-                         onchange="userIdCheck();" style="width: 95%;"
+			            <input class="inputline" type="text" name="userId" id="userId" value="${dto.userId}"
+                         onchange="userIdCheck();" 
                          ${mode=="update" ? "readonly='readonly' ":""}
                          maxlength="15" class="boxTF" placeholder="아이디">
-			        </p>
-			        <p class="help-block">아이디는 5~10자 이내이며, 첫글자는 영문자로 시작해야 합니다.</p>
+			        </p>			  
 			      </td>
 			  </tr>
 			
@@ -124,10 +123,8 @@ function userIdCheck() {
 			      </td>
 			      <td style="padding: 0 0 15px 15px;">
 			        <p style="margin-top: 1px; margin-bottom: 5px;">
-			            <input type="password" name="userPwd" maxlength="15" class="boxTF"
-			                       style="width:95%;" placeholder="패스워드">
-			        </p>
-			        <p class="help-block">패스워드는 5~10자 이내이며, 하나 이상의 숫자나 특수문자가 포함되어야 합니다.</p>
+			            <input class="inputline" type="password" name="userPwd" maxlength="15" class="boxTF" placeholder="패스워드">
+			        </p>	
 			      </td>
 			  </tr>
 			
@@ -137,10 +134,8 @@ function userIdCheck() {
 			      </td>
 			      <td style="padding: 0 0 15px 15px;">
 			        <p style="margin-top: 1px; margin-bottom: 5px;">
-			            <input type="password" name="userPwdCheck" maxlength="15" class="boxTF"
-			                       style="width: 95%;" placeholder="패스워드 확인">
-			        </p>
-			        <p class="help-block">패스워드를 한번 더 입력해주세요.</p>
+			            <input class="inputline" type="password" name="userPwdCheck" maxlength="15" class="boxTF" placeholder="패스워드 확인">
+			        </p>		
 			      </td>
 			  </tr>
 			
@@ -150,14 +145,15 @@ function userIdCheck() {
 			      </td>
 			      <td style="padding: 0 0 15px 15px;">
 			        <p style="margin-top: 1px; margin-bottom: 5px;">
-			            <input type="text" name="userName" value="${dto.userName}" maxlength="30" class="boxTF"
-		                      style="width: 95%;"
+			            <input class="inputline" type="text" name="userName" value="${dto.userName}" maxlength="30" class="boxTF"
 		                      ${mode=="update" ? "readonly='readonly' ":""}
 		                      placeholder="이름">
 			        </p>
 			      </td>
 			  </tr>			 
 		  </table>
+		  
+		  <div style="border-top: 1px solid #dddddd;"> &nbsp; </div>
 			
 			  <table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
 			     <tr height="45"> 
