@@ -5,8 +5,9 @@
    String cp = request.getContextPath();
 %>
 
-<div class="body-container" style="width: 700px;">
+<div class="body-container" style="width: 900px;">
     <div>
-     	미니 보드 게시판
+     	미니 보드 미니 보드 미니 보드 미니 보드  ㅁ ㅣ 니 보 드 
+     	ㄱ ㅔ 시판 
     </div>
 </div>

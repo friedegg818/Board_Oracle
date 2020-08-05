@@ -12,16 +12,13 @@
 	}
 </script>
 
-<div class="body-container" style="width: 700px;">
-    <div class="body-title">
-        <h3><i class="fas fa-chalkboard"></i> 게시판 </h3>
-    </div>
-    
+<div class="body-container" style="width: 900px;">
+  
     <div>
 		<table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px;">
 		   <tr height="35">
-		      <td align="left" width="50%">
-		          ${dataCount}개(${page}/${total_page} 페이지)
+		      <td align="right" width="100%">
+		          ${dataCount}개 (${page}/${total_page} 페이지)
 		      </td>
 		      <td align="right">
 		          &nbsp;
@@ -30,12 +27,12 @@
 		</table>
 		
 		<table style="width: 100%; margin: 0px auto; border-spacing: 0px; border-collapse: collapse;">
-		  <tr align="center" bgcolor="#eeeeee" height="35" style="border-top: 2px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
-		      <th width="60" style="color: #787878;">번호</th>
-		      <th style="color: #787878;">제목</th>
-		      <th width="100" style="color: #787878;">작성자</th>
-		      <th width="80" style="color: #787878;">작성일</th>
-		      <th width="60" style="color: #787878;">조회수</th>
+		  <tr align="center" bgcolor="#8E44AD" height="35" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+		      <th width="60" style="color: #F4F6F7;">번호</th>
+		      <th style="color: #F4F6F7;">제목</th>
+		      <th width="100" style="color: #F4F6F7;">작성자</th>
+		      <th width="80" style="color: #F4F6F7;">작성일</th>
+		      <th width="60" style="color: #F4F6F7;">조회수</th>
 		  </tr>
 		 
 		 <c:forEach var="dto" items="${list}">

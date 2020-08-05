@@ -25,19 +25,6 @@
 <script type="text/javascript" src="<%=cp%>/resource/js/util-jquery.js"></script>
 <script type="text/javascript" src="<%=cp%>/resource/js/util.js"></script>
 
-<script type="text/javascript">
-$(function(){
-	$(document)
-	   .ajaxStart(function(){ // AJAX 시작시
-		   $("#loadingImage").center();
-		   $("#loadingLayout").fadeTo("slow", 0.5);
-	   })
-	   .ajaxComplete(function(){ // AJAX 종료시
-		   $("#loadingLayout").hide();
-	   });
-});
-</script>
-
 </head>
 
 <body>
@@ -52,10 +39,6 @@ $(function(){
 
 <div class="footer">
     <tiles:insertAttribute name="footer"/>
-</div>
-
-<div id="loadingLayout" style="display: none; position: absolute; left: 0; top:0; width: 100%; height: 100%; z-index: 9000; background: #eeeeee;">
-	<i id="loadingImage" class="fa fa-cog fa-spin fa-fw" style="font-size: 70px; color: 333;"></i> 
 </div>
 
 <script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery-ui.min.js"></script>

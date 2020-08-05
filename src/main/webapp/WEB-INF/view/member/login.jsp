@@ -58,7 +58,7 @@ function sendLogin() {
 <div class="body-container">
     <div style="width:360px; margin: 0px auto; padding-top:90px;">
     	<div style="text-align: center;">
-        	<span style="font-weight: bold; font-size:27px; color: #424951;">회원 로그인</span>
+        	<span style="font-weight: bold; font-size:27px; color: #424951;">로그인</span>
         </div>
         
 		<form name="loginForm" method="post" action="">
@@ -87,9 +87,9 @@ function sendLogin() {
 		      </td>
 		  </tr>
 
-		  <tr align="center" height="45">
+		  <tr align="right" height="45">
 		      <td>
-		         <a href="<%=cp%>/member/member">회원가입</a>
+		        <a href="<%=cp%>/member/member">회원가입</a>
 		      </td>
 		  </tr>
 		  

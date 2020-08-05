@@ -37,11 +37,7 @@ function updateBoard() {
 
 
 
-<div class="body-container" style="width: 700px;">
-    <div class="body-title">
-        <h3><i class="fas fa-chalkboard"></i> 게시판 </h3>
-    </div>
-    
+<div class="body-container" style="width: 900px;">
     <div>
 			<table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
 			<tr height="35" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">

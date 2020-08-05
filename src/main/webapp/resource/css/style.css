@@ -17,8 +17,8 @@ a {
 	/*line-height: 150%;*/
 }
 a:hover, a:active {
-	color: #F28011;
-	text-decoration: underline;
+	color: #08E2F4;
+	text-decoration: none;
 }
 
 .btn {
@@ -50,7 +50,7 @@ a:hover, a:active {
 	font-size: 15px; 
 	border:none;
 	color:#ffffff;
-	background:#507CD1;
+	background:#7D3C98;
 	width: 360px;
 	height: 50px;
 	line-height: 50px;
